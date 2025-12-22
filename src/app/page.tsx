@@ -1,8 +1,9 @@
 import { Header } from "@/app/components/Headers"
 import { AdvertiseSection } from "@/app/components/Advertise/Advertise-sections"
-import { RecommendSection } from "@/app/features/Recommend/Recommend-sections"
+import { RecommendSection } from "@/app/components/Recommend/Recommend-sections"
 import { CurriculumSection } from "@/app/components/Curriculum/Curriculum-sections"
 import { PricingSection } from "@/app/components/PricingCourse/Pricing-sections"
+import {PricingPage} from "@/app/components/PricingCourse/Pricing"
 import { CTASection } from "@/app/components/CTA/CTA-sections"
 import { Footer } from "@/app/components/Footers"
 
