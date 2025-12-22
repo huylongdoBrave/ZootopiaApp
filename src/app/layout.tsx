@@ -10,7 +10,7 @@ const _robotoMono = V0_Font_Roboto_Mono({ subsets: ['latin'], weight: ["100","20
 const _slabo_27px = V0_Font_Slabo_27px({ subsets: ['latin'], weight: ["400"] })
 
 export const metadata: Metadata = {
-  title: 'Khóa học Frontend HL',
+  title: 'Frontend Course HL',
   description: 'Created by LongD',
   generator: 'LongD',
 }

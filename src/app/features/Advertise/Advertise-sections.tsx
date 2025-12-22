@@ -1,6 +1,6 @@
 import { ArrowRight, Code2 } from "lucide-react"
 
-export function HeroSection() {
+export function AdvertiseSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background grid effect */}
