@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ThemeProvider } from './components/Theme/theme-provider'  
 
 // import { Analytics } from '@vercel/analytics/Next'
 import './globals.css'
@@ -16,16 +17,27 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
-        {/* <Analytics /> */}
-      </body>
-    </html>
-  )
-}
+      children,
+    }: Readonly<{
+      children: React.ReactNode
+    }>) 
+  {
+    return (
+      <html lang="en" suppressHydrationWarning>
+        <body className={`font-sans antialiased`}>
+          <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+          value={{
+            light: "light",
+            dark: "dark",
+          }}
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    )
+  }

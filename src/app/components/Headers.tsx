@@ -1,5 +1,7 @@
 import { Code2, Menu } from "lucide-react"
 import Link from "next/link"
+import {ThemeToggle} from "../components/Theme/theme-toggle"
+
 
 export function Header() {
   return (
@@ -35,6 +37,9 @@ export function Header() {
             <button className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-accent/10 transition-colors">
               <Menu className="w-5 h-5" />
             </button>
+            <div className="relative">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>

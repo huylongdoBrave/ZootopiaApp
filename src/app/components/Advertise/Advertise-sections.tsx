@@ -4,7 +4,8 @@ export function AdvertiseSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background grid effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]
+       bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
       <div className="relative max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm mb-8">
@@ -13,7 +14,7 @@ export function AdvertiseSection() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
-          Trở thành Frontend Developer
+          Chương trình đào tạo lập trình viên Front end
           <br />
           <span className="text-accent">chuyên nghiệp</span>
         </h1>

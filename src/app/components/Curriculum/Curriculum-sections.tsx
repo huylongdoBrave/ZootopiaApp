@@ -1,44 +1,17 @@
+"use client"
 import { Check } from "lucide-react"
-
-const modules = [
-  {
-    title: "Module 1: HTML & CSS cơ bản",
-    duration: "2 tuần",
-    lessons: [
-      "Semantic HTML và cấu trúc trang web",
-      "CSS Flexbox và Grid Layout",
-      "Responsive Design với Media Queries",
-      "CSS Variables và Custom Properties",
-    ],
-  },
-  {
-    title: "Module 2: JavaScript hiện đại",
-    duration: "3 tuần",
-    lessons: ["ES6+ Syntax và Features", "Async/Await và Promises", "DOM Manipulation", "API Integration với Fetch"],
-  },
-  {
-    title: "Module 3: React & TypeScript",
-    duration: "4 tuần",
-    lessons: [
-      "React Components và Hooks",
-      "State Management với Context API",
-      "TypeScript cơ bản đến nâng cao",
-      "React Router và Navigation",
-    ],
-  },
-  {
-    title: "Module 4: Next.js & Deployment",
-    duration: "3 tuần",
-    lessons: [
-      "Next.js App Router và Server Components",
-      "API Routes và Server Actions",
-      "Database Integration",
-      "Deploy lên Vercel",
-    ],
-  },
-]
+import { useRouter } from "next/navigation"
+import { getCurriculumData, CurriculumPlan } from "./data"
 
 export function CurriculumSection() {
+
+  const curriculumPlans = getCurriculumData()
+  const router = useRouter()
+
+  const handleSelectPlan = (plan: CurriculumPlan) => {
+    router.push(`/Curriculum?id=${plan.id}`)
+  }
+
   return (
     <section className="py-24 px-4 bg-card/50">
       <div className="max-w-7xl mx-auto">
@@ -50,9 +23,10 @@ export function CurriculumSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {modules.map((module, i) => (
+          {curriculumPlans.map((module, i) => (
             <div
-              key={i}
+              key={module.id}
+              onClick={() => handleSelectPlan(module)}
               className="bg-background border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
             >
               <div className="flex items-start justify-between mb-4">
