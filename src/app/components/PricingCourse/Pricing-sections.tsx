@@ -33,7 +33,7 @@ export function PricingSection() {
             <div
               key={plan.id}
               // Sửa button cho nằm dưới đáy className="bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative transition-all hover:shadow-lg hover:scale-105"
-              className="bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative flex flex-col transition-all hover:shadow-lg hover:scale-105"
+              className="cursor-pointer bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative flex flex-col transition-all hover:shadow-lg hover:scale-105"
             >
               {/* {index === 2 && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold">
@@ -63,7 +63,7 @@ export function PricingSection() {
               <button
                 onClick={() => handleSelectPlan(plan)}
                 //  Sửa button cho nằm dưới đáy className="top-0 w-full bg-accent hover:bg-accent/90 text-black font-semibold py-2.5 rounded-lg transition-colors"
-                className="w-full bg-accent hover:bg-accent/90 text-black font-semibold py-2.5 rounded-lg transition-colors mt-auto"
+                className="cursor-pointer w-full bg-accent hover:bg-accent/90 text-black font-semibold py-2.5 rounded-lg transition-colors mt-auto"
               >
                 Đăng ký ngay
               </button>
