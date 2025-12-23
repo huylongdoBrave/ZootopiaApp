@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 
-//    ====== CSS TW BUTTONS MÀU CAM TRANG Zootopia  ======
+//    ====== CSS TW BUTTONS Xanh lá  ======
 
 
 // React.ButtonHTMLAttributes<HTMLButtonElement> cho phép components nhận tất cả các thuộc tính của thẻ <button> HTML (onClick, disabled, type,...)
@@ -11,10 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ButtonAdd: React.FC<ButtonProps> = ({ children, className, ...props }) => {
   const baseClasses = `
-    bg-[#BBCB64] text-white font-black tracking-wider border-[3px] border-white 
-    cursor-pointer shadow-lg transition-all duration-200 rounded-full inline-block
-    hover:bg-white hover:text-[#BBCB64]
-    disabled:bg-gray-400 disabled:cursor-not-allowed
+    bg-accent text-accent-foreground font-bold py-3 rounded-full inline-block
+    cursor-pointer shadow-lg transition-all duration-200
+    hover:brightness-90 dark:hover:brightness-110 hover:scale-105
+    disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:brightness-100
   `;
 
   return (
