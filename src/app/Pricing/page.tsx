@@ -1,11 +1,11 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, Suspense } from "react"
 import { Check, ArrowLeft, ShoppingCart } from "lucide-react"
-import { getPlanById } from "./data"
+import { getPlanById } from "../components/PricingCourse/data"
 
-export default function PricingPage() {
+function PricingContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -13,16 +13,16 @@ export default function PricingPage() {
   // const salePrice = searchParams.get("salePrice") || ""
   // const descript = searchParams.get("descript") || ""
   const planId = searchParams.get("id")
-  const plan = getPlanById(Number(planId))
+  const plan = planId ? getPlanById(Number(planId)) : null
 
   useEffect(() => {
     if (!plan) {
-      router.replace("/#pricing") // Quay về trang chủ nếu không tìm thấy plan
+      router.replace("/") // Quay về trang chủ nếu không tìm thấy plan
     }
-  }, [plan, router])
+  }, [plan, planId, router])
 
   if (!plan) {
-    return null // Hoặc hiển thị một component loading
+    return <div className="p-10 text-center">Đang tải thông tin gói học...</div> 
   }
 
   const savings = Number.parseInt(plan.price.replace(/\D/g, "")) - Number.parseInt(plan.salePrice.replace(/\D/g, ""))
@@ -107,5 +107,13 @@ export default function PricingPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function PricingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PricingContent />
+    </Suspense>
   )
 }
