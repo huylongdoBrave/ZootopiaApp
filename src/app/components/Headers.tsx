@@ -1,8 +1,10 @@
 "use client"
 import { Code2, Menu, X } from "lucide-react"
+import { useCallback, useState } from "react"
 import Link from "next/link"
 import {ThemeToggle} from "../components/Theme/theme-toggle"
-import { useCallback, useState } from "react"
+import ButtonCustomA from "./Button/ButtonCustomA"
+
 import LoginPopup from '../components/Auth/LoginPopup';
 
 export function Header() {
@@ -85,7 +87,16 @@ export function Header() {
               >
                 Học phí
               </Link>
-              <button
+
+              <ButtonCustomA 
+                  onClick={() => {
+                  setIsLoginOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Đăng nhập
+              </ButtonCustomA>
+              {/* <button
                 onClick={() => {
                   setIsLoginOpen(true);
                   setIsMobileMenuOpen(false);
@@ -93,7 +104,7 @@ export function Header() {
                 className="text-left text-sm font-medium hover:text-accent transition-colors"
               >
                 Đăng nhập
-              </button>
+              </button> */}
             </nav>
           </div>
         )}
