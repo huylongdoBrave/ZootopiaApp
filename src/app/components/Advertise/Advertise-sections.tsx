@@ -4,9 +4,22 @@ export function AdvertiseSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background grid effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]
-       bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-
+      <div 
+        className="
+          absolute inset-0 
+          -z-10 h-full w-full 
+          bg-[size:4rem_4rem]
+          /* 1. Định nghĩa màu cho biến --line-color */
+          /* Light Mode: Dùng màu xám cực nhạt (#e5e7eb - gray-200) */
+          [--line-color:#e5e7eb] 
+          /* Dark Mode: Dùng lại màu tối cũ (#1a1a1a) hoặc dùng màu trắng mờ (rgba(255,255,255,0.05)) */
+          dark:[--line-color:#1a1a1a]
+          /* 2. Áp dụng biến vào Gradient */
+          bg-[linear-gradient(to_right,var(--line-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--line-color)_1px,transparent_1px)]
+          /* 3. Mask giữ nguyên */
+          [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]
+        " 
+      />
       <div className="relative max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm mb-8">
           <Code2 className="w-4 h-4" />
