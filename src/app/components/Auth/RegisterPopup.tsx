@@ -3,13 +3,13 @@
 import { X } from "lucide-react"; 
 import { useEffect } from "react";
 
-interface LoginModalProps {
+interface RegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
-
+export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
+    
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") 
