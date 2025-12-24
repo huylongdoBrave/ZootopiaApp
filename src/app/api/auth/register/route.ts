@@ -5,26 +5,26 @@ import bcrypt from "bcryptjs";
 import fs from "fs"; //Để lưu dữ liệu lâu dài (Persistence) giống như một database thật (kể cả khi tắt máy bật lại vẫn còn), cần tạo một file .json riêng biệt và dùng thư viện fs (File System) của Node.js để đọc/ghi nó.
 import path from "path"; 
 
-// Định nghĩa đường dẫn tới file JSON
-const filePath = path.join(process.cwd(), "data", "users.json");
-// Đọc dữ liệu
-const getUsersFromFile = () => {
-  try {
-    // Nếu file chưa tồn tại thì trả về mảng rỗng
-    if (!fs.existsSync(filePath)) {
-      return [];
-    }
-    const fileData = fs.readFileSync(filePath, "utf8");
-    return JSON.parse(fileData);
-  } catch (error) {
-    return [];
-  }
-};
-// Ghi dữ liệu vào file
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const saveUsersToFile = (users: any[]) => {
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), "utf8");
-};
+// // Định nghĩa đường dẫn tới file JSON
+// const filePath = path.join(process.cwd(), "data", "users.json");
+// // Đọc dữ liệu
+// const getUsersFromFile = () => {
+//   try {
+//     // Nếu file chưa tồn tại thì trả về mảng rỗng
+//     if (!fs.existsSync(filePath)) {
+//       return [];
+//     }
+//     const fileData = fs.readFileSync(filePath, "utf8");
+//     return JSON.parse(fileData);
+//   } catch (error) {
+//     return [];
+//   }
+// };
+// // Ghi dữ liệu vào file
+// // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const saveUsersToFile = (users: any[]) => {
+//   fs.writeFileSync(filePath, JSON.stringify(users, null, 2), "utf8");
+// };
 
 export async function POST(request: Request) {
   try {
@@ -84,8 +84,8 @@ export async function POST(request: Request) {
 
     // 5. Lưu vào kho (Push vào mảng)
     users.push(newUser);
-    saveUsersToFile(users);
-/* => */console.log("Danh sách User hiện tại:", users);
+    // saveUsersToFile(users);
+// /* => */console.log("Danh sách User hiện tại:", users);
 
     // 6. Trả về thông báo thành công cho Frontend
     return NextResponse.json(
