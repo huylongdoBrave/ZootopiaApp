@@ -89,6 +89,7 @@ export default function RegisterPopup({
           alert("Đăng ký thành công!");
           reset(); // Xóa sạch form
       }
+      
       if (onSwitchToLogin) onSwitchToLogin();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -103,7 +104,7 @@ export default function RegisterPopup({
 
   // Reset form mỗi khi mở popup
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) {
         reset();
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setErrorMessage("");
