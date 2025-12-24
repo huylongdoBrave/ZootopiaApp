@@ -6,89 +6,130 @@ import { useEffect } from "react";
 interface RegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSwitchToLogin?: () => void;
 }
 
-export default function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
+export default function RegisterPopup({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps) {
     
+  // Bấm ESC để tắt
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") 
-        onClose();
+      if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-
   if (!isOpen) return null;
 
   return (
-    // 1. Lớp nền đen mờ che phủ toàn màn hình (Overlay)
-    <div
-    className=" fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    // CONTAINER CHÍNH: Căn giữa nội dung
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       
-      {/* 2. Cái hộp Popup chính */}
+      {/* 1. LỚP NỀN (Backdrop) - Nằm riêng biệt */}
       <div 
-        // className="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden animate-in fade-in zoom-in duration-300"
-        className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden animate-in fade-in zoom-in duration-300"
-        onClick={(e) => e.stopPropagation()} // Chặn click xuyên thấu
-      >
-        
-        {/* Nút tắt X */}
-        <button 
-          onClick={onClose}
-        //   className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-accent/10 transition-colors"
-        >
-          {/* <X className="w-5 h-5 text-gray-500" /> */}
-          <X className="w-5 h-5 text-muted-foreground" />
-        </button>
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      ></div>
 
-        {/* Nội dung Form */}
-        <div className="p-8">
-          <h2 className="text-2xl font-bold text-center mb-2">Xin chào.</h2>
-          {/* <p className="text-center text-gray-500 mb-6">Đăng nhập để tiếp tục học tập</p> */}
-          <p className="text-center text-muted-foreground mb-6">Đăng nhập để tiếp tục học tập</p>
+      {/* 2. HỘP POPUP - Nằm đè lên trên (z-10) */}
+      <div className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-lg relative z-10 overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
+        
+        {/* Header Popup (Nút tắt) */}
+        <div className="absolute top-4 right-4 z-20">
+            <button 
+            onClick={onClose}
+            type="button"
+            className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+            >
+            <X className="w-5 h-5 text-muted-foreground" />
+            </button>
+        </div>
+
+        {/* Nội dung Form (Thêm overflow-y-auto để nếu màn hình nhỏ quá thì cuộn được) */}
+        <div className="p-8 overflow-y-auto">
+          <h2 className="text-2xl font-bold text-center mb-2">Tạo tài khoản mới</h2>
+          <p className="text-center text-muted-foreground mb-6">Điền thông tin để tham gia cộng đồng</p>
 
           <form className="space-y-4">
+            
+            {/* Họ và tên */}
             <div>
-              {/* <label className="block text-sm font-medium text-gray-700 mb-1">Email</label> */}
+              <label className="block text-sm font-medium mb-1">Họ và tên</label>
+              <input 
+                type="text" 
+                placeholder="Tên của bạn"
+                className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
               <label className="block text-sm font-medium mb-1">Email</label>
               <input 
                 type="email" 
                 placeholder="name@example.com"
-                // className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
               />
             </div>
             
-            <div>
-              {/* <label className="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label> */}
-              <label className="block text-sm font-medium mb-1">Mật khẩu</label>
-              <input 
-                type="password" 
-                placeholder="••••••••"
-                // className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
-              />
+            {/* Hàng đôi: SĐT và Ngày sinh */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium mb-1">Số điện thoại</label>
+                    <input 
+                        type="tel" 
+                        placeholder="098..."
+                        className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">Ngày sinh</label>
+                    <input 
+                        type="date" 
+                        className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                    />
+                </div>
             </div>
-            {/* <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors"> */}
-            <button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 rounded-lg transition-colors">
-              Đăng nhập
+
+            {/* Hàng đôi: Mật khẩu và Nhập lại mật khẩu */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium mb-1">Mật khẩu</label>
+                    <input 
+                        type="password" 
+                        placeholder="••••••••"
+                        className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">Xác nhận mật khẩu</label>
+                    <input 
+                        type="password" 
+                        placeholder="••••••••"
+                        className="w-full px-4 py-3 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition-all"
+                    />
+                </div>
+            </div>
+
+            {/* Nút Đăng ký */}
+            <button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 rounded-lg transition-colors mt-2">
+              Đăng ký tài khoản
             </button>
           </form>
 
-          {/* <div className="mt-6 text-center text-sm text-gray-500">
-            Chưa có tài khoản? <span className="text-blue-600 font-semibold cursor-pointer hover:underline">Đăng ký ngay</span> */}
+          {/* Footer chuyển đổi */}
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            Chưa có tài khoản? <span className="text-accent font-semibold cursor-pointer hover:underline">Đăng ký ngay</span>
+            Đã có tài khoản?{" "}
+            <span 
+                onClick={onSwitchToLogin}
+                className="text-accent font-semibold cursor-pointer hover:underline"
+            >
+                Đăng nhập ngay
+            </span>
           </div>
         </div>
       </div>
-
-      {/* Lớp click ra ngoài để tắt (đặt sau cùng nhưng z-index thấp hơn hộp popup) */}
-      {/* <div className="absolute inset-0" onClick={onClose}></div> */}
-
     </div>
   );
 }

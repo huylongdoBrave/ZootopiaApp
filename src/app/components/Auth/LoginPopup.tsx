@@ -23,18 +23,14 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   if (!isOpen) return null;
 
   return (
-    // 1. Lớp nền đen mờ che phủ toàn màn hình (Overlay)
     <div
     className=" fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       
-      {/* 2. Cái hộp Popup chính */}
       <div 
         // className="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden animate-in fade-in zoom-in duration-300"
         className="bg-card border border-border rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden animate-in fade-in zoom-in duration-300"
         onClick={(e) => e.stopPropagation()} // Chặn click xuyên thấu
       >
-        
-        {/* Nút tắt X */}
         <button 
           onClick={onClose}
         //   className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -44,7 +40,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <X className="w-5 h-5 text-muted-foreground" />
         </button>
 
-        {/* Nội dung Form */}
         <div className="p-8">
           <h2 className="text-2xl font-bold text-center mb-2">Xin chào.</h2>
           {/* <p className="text-center text-gray-500 mb-6">Đăng nhập để tiếp tục học tập</p> */}
