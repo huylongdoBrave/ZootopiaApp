@@ -71,13 +71,14 @@ export default function LoginPopup({ isOpen, onClose, onSwitchToRegister }: Logi
 
 
   // Reset form khi mở popup
-  // useEffect(() => {
-  //   if (isOpen) {
-  //       reset();
-  //       // eslint-disable-next-line react-hooks/set-state-in-effect
-  //       setErrorMessage("");
-  //   }
-  // }, [isOpen, reset]);
+  useEffect(() => {
+    if (!isOpen) {
+        reset();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setErrorMessage("");
+        
+    }
+  }, [isOpen, reset]);
 
 
   // Xử lý phím ESC
