@@ -156,7 +156,8 @@ export default function LoginPopup({ isOpen, onClose, onSwitchToRegister }: Logi
             <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-3 rounded-lg 
+                transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                   <>

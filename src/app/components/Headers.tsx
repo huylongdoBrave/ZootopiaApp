@@ -1,5 +1,5 @@
 "use client"
-import { Code2, Menu, X, User, LogOut } from "lucide-react"
+import { Code2, Menu, X, User, LogOut, MessageCircle, Send, ArrowUp } from "lucide-react"
 import Link from "next/link"
 import { ThemeToggle } from "../components/Theme/theme-toggle"
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,6 +22,7 @@ export function Header() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   // 3. useEffect kiểm tra LocalStorage khi tải trang
   useEffect(() => {
@@ -52,6 +53,20 @@ export function Header() {
           setLocalUser(null);
           window.location.reload();
       }
+  };
+
+  const scrollToAdvertise = (e: React.MouseEvent) => {
+    e.preventDefault(); // Ngăn chặn việc đổi URL thành /#advertise
+    
+    // Tìm phần tử có id="advertise"
+    const element = document.getElementById("advertise");
+    
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start" // Cuộn để phần đầu section chạm đỉnh màn hình
+      });
+    }
   };
 
   // Cấu hình hiệu ứng (Variants)
@@ -262,6 +277,77 @@ export function Header() {
             setIsLoginOpen(true);
         }}
       />
+
+      {/* === CONTACT POPUP  === */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-4 sm:bottom-8 sm:right-8">
+        <AnimatePresence>
+          {isContactOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="mb-2 w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl dark:bg-slate-900/95 dark:backdrop-blur-sm"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-bold">Liên hệ hỗ trợ</h3>
+                  <p className="text-xs text-muted-foreground">Chúng tôi thường phản hồi trong vài phút</p>
+                </div>
+                <button 
+                  onClick={() => setIsContactOpen(false)}
+                  className="rounded-full p-1 hover:bg-accent/10 transition-colors"
+                >
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Email của bạn</label>
+                  <input 
+                    type="email" 
+                    placeholder="name@example.com" 
+                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Tin nhắn</label>
+                  <textarea 
+                    placeholder="Bạn cần hỗ trợ gì?" 
+                    rows={3}
+                    className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent/50 transition-all"
+                  />
+                </div>
+                <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-2.5 text-sm font-bold text-accent-foreground transition-colors hover:bg-accent/90">
+                  <Send className="h-4 w-4" />
+                  Gửi tin nhắn
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Scroll To Top Button */}
+        <button
+          onClick={scrollToAdvertise}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-card border border-border shadow-lg transition-all hover:scale-110 hover:border-accent hover:text-accent active:scale-95"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>
+
+        {/* Toggle Button */}
+        <button
+          onClick={() => setIsContactOpen(!isContactOpen)}
+          className="group flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg transition-all hover:scale-110 hover:shadow-xl active:scale-95"
+        >
+          <div className="relative">
+            <MessageCircle className={`h-6 w-6 transition-all duration-300 ${isContactOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`} />
+            <X className={`absolute top-0 left-0 h-6 w-6 transition-all duration-300 ${isContactOpen ? 'scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`} />
+          </div>
+        </button>
+      </div>
+      {/* === END CONTACT POPUP === */}
 
     </>
   )

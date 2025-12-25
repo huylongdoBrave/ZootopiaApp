@@ -2,8 +2,13 @@
 import { ArrowRight, Code2 } from "lucide-react"
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import RegisterPopup from "../Auth/RegisterPopup";
+
 
 export function AdvertiseSection() {
+
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [particles, setParticles] = useState<any[]>([]);
@@ -18,9 +23,29 @@ export function AdvertiseSection() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(newParticles);
   }, []);
+
+
+  const scrollToCurriculum = (e: React.MouseEvent) => {
+    e.preventDefault(); 
+    const element = document.getElementById("curriculum");
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start"
+      });
+    }
+  };
   
+
+  useEffect(() => {
+      const user = localStorage.getItem("user_info");
+      if (user) {
+        setIsLoggedIn(true); // Nếu có -> Đã đăng nhập
+      }
+    }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
+    <section id="advertise" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
 
       <div className="absolute inset-0 z-0">
         {particles.map((particle, i) => (
@@ -91,11 +116,19 @@ export function AdvertiseSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="inline-flex items-center justify-center text-lg px-8 py-3 rounded-lg bg-accent hover:bg-accent/90 text-black font-semibold transition-colors">
-            Đăng ký ngay
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </button>
-          <button className="inline-flex items-center justify-center text-lg px-8 py-3 rounded-lg bg-transparent border-2 border-border hover:bg-accent/10 transition-colors">
+          
+          {!isLoggedIn && (
+            <button
+            onClick={() => setIsRegisterOpen(true)}
+            className="cursor-pointer inline-flex items-center justify-center text-lg px-8 py-3 rounded-lg bg-accent hover:bg-accent/90 text-black font-semibold transition-colors">
+              Đăng ký ngay
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </button>
+          )}
+
+          <button
+          onClick={scrollToCurriculum}
+          className="cursor-pointer inline-flex items-center justify-center text-lg px-8 py-3 rounded-lg bg-transparent border-2 border-border hover:bg-accent/10 transition-colors">
             Xem chương trình học
           </button>
         </div>
@@ -114,6 +147,15 @@ export function AdvertiseSection() {
           ))}
         </div>
       </div>
+
+      <RegisterPopup
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        onSwitchToLogin={() => {
+            setIsRegisterOpen(false);
+        }}
+      />
+
     </section>
   )
 }

@@ -19,7 +19,7 @@ export function PricingSection() {
   }
 
   return (
-    <section className="py-24 px-4 bg-emerald-50 dark:bg-emerald-950 transition-colors">
+    <section id="pricing" className="py-24 px-4 bg-emerald-50 dark:bg-emerald-950 transition-colors">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Học phí ưu đãi</h2>
@@ -33,7 +33,7 @@ export function PricingSection() {
             <div
               key={plan.id}
               // Sửa button cho nằm dưới đáy className="bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative transition-all hover:shadow-lg hover:scale-105"
-              className="cursor-pointer bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative flex flex-col transition-all hover:shadow-lg hover:scale-105"
+              className=" bg-card border-2 border-border hover:border-accent rounded-2xl p-6 relative flex flex-col transition-all hover:shadow-lg hover:scale-105"
             >
               {/* {index === 2 && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold">
@@ -65,7 +65,7 @@ export function PricingSection() {
                 //  Sửa button cho nằm dưới đáy className="top-0 w-full bg-accent hover:bg-accent/90 text-black font-semibold py-2.5 rounded-lg transition-colors"
                 className="cursor-pointer w-full bg-accent hover:bg-accent/90 text-black font-semibold py-2.5 rounded-lg transition-colors mt-auto"
               >
-                Đăng ký ngay
+                Xem thông tin 
               </button>
             </div>
           ))}
