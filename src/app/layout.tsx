@@ -6,6 +6,8 @@ import './globals.css'
 // import { DM_Sans as V0_Font_DM_Sans, Roboto_Mono as V0_Font_Roboto_Mono, Slabo_27px as V0_Font_Slabo_27px } from 'next/font/google'
 import { Be_Vietnam_Pro } from 'next/font/google'
 import { Providers } from '@/components/Provider'
+import { Header } from "@/app/components/Headers"
+import { Footer } from "@/app/components/Footers"
 
 // Initialize fonts
 // const _dmSans = V0_Font_DM_Sans({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900","1000"] })
@@ -32,7 +34,7 @@ export default function RootLayout({
     }>) 
   {
     return (
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en"  data-scroll-behavior="smooth" suppressHydrationWarning>
         <body className={`${fontMain.variable} font-sans antialiased`}>
 
             <ThemeProvider
@@ -46,7 +48,9 @@ export default function RootLayout({
               }}
               >          
               <Providers>
+  
                 {children}
+
               </Providers>
             </ThemeProvider>
 

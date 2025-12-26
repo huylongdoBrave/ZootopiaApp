@@ -1,23 +1,56 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
-import { getCurriculumData, getPlanById } from "../components/Curriculum/data"
-import { ArrowLeft, Check, Clock } from "lucide-react"
-import { Suspense, useEffect } from "react"
+import { CurriculumPlan } from "../components/Curriculum/data"
+import { ArrowLeft, Check, Clock, Loader2 } from "lucide-react"
+import { Suspense, useEffect, useState } from "react"
 
 function CourseContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+
   const planId = searchParams.get("id")
+  const [plan, setPlan] = useState<CurriculumPlan | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  // const plan = planId ? getPlanById(Number(planId)) : null
 
-  const plan = planId ? getPlanById(Number(planId)) : null
+  const API_URL = "https://694cec27da5ddabf0037d71b.mockapi.io/curriculum_plans";
 
-  useEffect(() => {
-    if (!plan) {
-      router.replace("/") //
+  // useEffect(() => {
+  //   if (!plan) {
+  //     router.replace("/") //
+  //   }
+  // }, [plan, planId, router])
+
+  useEffect(() =>{
+    if (!planId) {
+      router.replace("/")
+      return
     }
-  }, [plan, planId, router])
-
+    const fetchDetailCurriculum = async() => {
+      try {
+        const response = await fetch(`${API_URL}/${planId}`)
+        const data = await response.json()
+        setPlan(data)
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Không tìm thấy khóa học:", error)
+        router.replace("/")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchDetailCurriculum();
+  }, [planId, router]);
+  
+    if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-2">
+        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <p className="text-muted-foreground">Đang tải thông tin chương trình...</p>
+      </div>
+    )
+  }
 
   if (!plan) {
     return (
@@ -58,14 +91,14 @@ function CourseContent() {
           <p className="text-xl text-muted-foreground leading-relaxed">{plan.description}</p>
         </div>
 
-        {/* Lessons list */}
+        {/* lessions list */}
         <div className="bg-card border border-border rounded-lg p-6 md:p-8">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <Clock className="w-6 h-6 text-accent" />
             Nội dung học
           </h2>
           <ul className="space-y-4">
-            {plan.lessons.map((lesson, index) => (
+            {plan.lessions.map((lesson, index) => (
               <li key={index} className="flex items-start gap-4">
                 <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
                   <Check className="w-5 h-5 text-accent" />

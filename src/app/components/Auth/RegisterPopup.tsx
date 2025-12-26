@@ -156,7 +156,7 @@ export default function RegisterPopup({
               <input 
                 {...register("name")} // Thay thế value/onChange bằng register
                 type="text" 
-                placeholder="Nguyễn Văn A"
+                placeholder="Tên của bạn"
                 className={`w-full px-4 py-3 rounded-lg border bg-background outline-none transition-all
                     ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-input focus:ring-2 focus:ring-ring'}`}
               />

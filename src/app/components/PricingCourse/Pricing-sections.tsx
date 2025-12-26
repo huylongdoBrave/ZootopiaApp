@@ -1,15 +1,39 @@
 "use client"
 import { useRouter } from "next/navigation"
-import { Check } from "lucide-react"
-import { getPricingData, PricingPlan } from "./data"
+import { Check, Loader2 } from "lucide-react"
+import { PricingPlan } from "./data"
+import { useState, useEffect } from "react"
+import axios from "axios" 
 
 
 export function PricingSection() {
-  const pricingPlans = getPricingData()
+  // const pricingPlans = getPricingData() lấy data tĩnh
   const router = useRouter()
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // API PRICING COURSE
+  const API_URL = "https://694cec27da5ddabf0037d71b.mockapi.io/pricing_plans";
+
+  useEffect(() => { 
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(API_URL);
+        setPricingPlans(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error take data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   const handleSelectPlan = (plan: PricingPlan) => {
-    //     const params = new URLSearchParams({
+    // const params = new URLSearchParams({
     //   price: plan.price,
     //   salePrice: plan.salePrice,
     //   descript: plan.descript.join(","),

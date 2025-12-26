@@ -1,12 +1,34 @@
 "use client"
-import { Check } from "lucide-react"
+import { Check, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { getCurriculumData, CurriculumPlan } from "./data"
+import { CurriculumPlan } from "./data"
+import { useState, useEffect } from "react"
+import axios from "axios" 
 
 export function CurriculumSection() {
 
-  const curriculumPlans = getCurriculumData()
+  // const curriculumPlans = getCurriculumData()
   const router = useRouter()
+  const [curriculumPlans, setCurriculumPlans] = useState<CurriculumPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const API_URL = "https://694cec27da5ddabf0037d71b.mockapi.io/curriculum_plans";
+
+  useEffect(() => { 
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(API_URL);
+        setCurriculumPlans(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error take data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSelectPlan = (plan: CurriculumPlan) => {
     router.push(`/Curriculum?id=${plan.id}`)
@@ -34,7 +56,7 @@ export function CurriculumSection() {
                 <span className="text-sm text-accent px-3 py-1 rounded-full bg-accent/10">{module.duration}</span>
               </div>
               <ul className="space-y-3">
-                {module.lessons.map((lesson, j) => (
+                {module.lessions.map((lesson, j) => (
                   <li key={j} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                     <span className="text-muted-foreground">{lesson}</span>

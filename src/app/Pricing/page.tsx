@@ -1,9 +1,10 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
-import { useEffect, Suspense } from "react"
-import { Check, ArrowLeft, ShoppingCart } from "lucide-react"
-import { getPlanById } from "../components/PricingCourse/data"
+import { useEffect, useState, Suspense } from "react"
+import { Check, ArrowLeft, ShoppingCart, Loader2 } from "lucide-react"
+import { PricingPlan } from "../components/PricingCourse/data"
+import axios from "axios"
 
 function PricingContent() {
   const searchParams = useSearchParams()
@@ -12,20 +13,69 @@ function PricingContent() {
   // const price = searchParams.get("price") || ""
   // const salePrice = searchParams.get("salePrice") || ""
   // const descript = searchParams.get("descript") || ""
+
   const planId = searchParams.get("id")
-  const plan = planId ? getPlanById(Number(planId)) : null
+  // const plan = planId ? getPlanById(Number(planId)) : null
+  const [plan, setPlan] = useState<PricingPlan | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const API_URL = "https://694cec27da5ddabf0037d71b.mockapi.io/pricing_plans";
+
+  // useEffect(() => {
+  //   if (!plan) {
+  //     router.replace("/") // Quay về trang chủ nếu không tìm thấy plan
+  //   }
+  // }, [plan, planId, router])
 
   useEffect(() => {
-    if (!plan) {
-      router.replace("/") // Quay về trang chủ nếu không tìm thấy plan
+    if (!planId) {
+      router.replace("/")
+      return
     }
-  }, [plan, planId, router])
+    const fetchDetailPricing = async() => {
+      try {
+        const response = await axios.get(`${API_URL}/${planId}`)
+        setPlan(response.data)
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Không tìm thấy gói học:", error)
+        router.replace("/")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchDetailPricing();
+  }, [planId, router] );
 
-  if (!plan) {
-    return <div className="p-10 text-center">Đang tải thông tin gói học...</div> 
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-2">
+        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <p className="text-muted-foreground">Đang tải thông tin gói học...</p>
+      </div>
+    )
   }
 
-  const savings = Number.parseInt(plan.price.replace(/\D/g, "")) - Number.parseInt(plan.salePrice.replace(/\D/g, ""))
+  if (!plan) {
+    return (
+            <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Không tìm thấy chương tr</h1>
+          <button
+            onClick={() => router.push("/")}
+            className="px-6 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            Quay lại trang chủ
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const priceNumber = Number.parseInt(plan.price.replace(/\D/g, "") || "0")
+  const salePriceNumber = Number.parseInt(plan.salePrice.replace(/\D/g, "") || "0")
+  const savings = priceNumber - salePriceNumber
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,9 +147,11 @@ function PricingContent() {
               </ul>
             </div>
 
-            <button className="w-full bg-accent hover:bg-accent/90 text-black font-bold py-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-lg">
-              <ShoppingCart className="w-5 h-5" />
-              Đăng ký ngay
+            <button 
+            onClick={() => router.back()} 
+            className="cursor-pointer w-full bg-accent hover:bg-accent/90 text-black font-bold py-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-lg">
+              {/* <ShoppingCart className="w-5 h-5" /> */}
+              Liên hệ
             </button>
 
             <p className="text-center text-sm text-muted-foreground mt-4">Bắt đầu học ngay sau khi thanh toán</p>
