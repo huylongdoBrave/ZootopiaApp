@@ -87,14 +87,9 @@ export function AdvertiseSection() {
           absolute inset-0 
           -z-10 h-full w-full 
           bg-[size:4rem_4rem]
-          /* 1. Định nghĩa màu cho biến --line-color */
-          /* Light Mode: Dùng màu xám cực nhạt (#e5e7eb - gray-200) */
           [--line-color:#e5e7eb] 
-          /* Dark Mode: Dùng lại màu tối cũ (#1a1a1a) hoặc dùng màu trắng mờ (rgba(255,255,255,0.05)) */
           dark:[--line-color:#1a1a1a]
-          /* 2. Áp dụng biến vào Gradient */
           bg-[linear-gradient(to_right,var(--line-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--line-color)_1px,transparent_1px)]
-          /* 3. Mask giữ nguyên */
           [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]
         " 
       />
