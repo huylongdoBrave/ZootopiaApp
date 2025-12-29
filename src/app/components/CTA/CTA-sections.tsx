@@ -4,11 +4,10 @@ import Link from "next/link"
 
 export function CTASection() {
 
-  const scrollToAdvertise = (e: React.MouseEvent) => {
-    e.preventDefault(); // Ngăn chặn việc đổi URL thành /#advertise
-    
-    // Tìm phần tử có id="advertise"
-    const element = document.getElementById("advertise-sec");
+  const scrollToIntro = (e: React.MouseEvent) => {
+    e.preventDefault(); // Ngăn chặn việc đổi URL thành /#intro
+
+    const element = document.getElementById("intro-sec");
     
     if (element) {
       element.scrollIntoView({ 
@@ -28,7 +27,7 @@ export function CTASection() {
           Đăng ký ngay hôm nay và nhận ưu đãi đặc biệt dành cho 50 học viên đầu tiên
         </p>
         <button 
-          onClick={scrollToAdvertise}
+          onClick={scrollToIntro}
           className="cursor-pointer inline-flex items-center justify-center text-lg px-8 py-3 rounded-lg bg-accent hover:bg-accent/90 text-black font-semibold transition-colors"
         >
           Xem thông tin 

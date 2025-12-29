@@ -55,12 +55,9 @@ export function Header() {
       }
   };
 
-  const scrollToAdvertise = (e: React.MouseEvent) => {
-    e.preventDefault(); // Ngăn chặn việc đổi URL thành /#advertise
-    
-    // Tìm phần tử có id="advertise"
-    const element = document.getElementById("advertise-sec");
-    
+  const scrollToIntro = (e: React.MouseEvent) => {
+    e.preventDefault(); // Ngăn chặn việc đổi URL thành /#intro
+    const element = document.getElementById("intro-sec");   
     if (element) {
       element.scrollIntoView({ 
         behavior: "smooth", 
@@ -330,7 +327,7 @@ export function Header() {
 
         {/* Scroll To Top Button */}
         <button
-          onClick={scrollToAdvertise}
+          onClick={scrollToIntro}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-card border border-border shadow-lg transition-all hover:scale-110 hover:border-accent hover:text-accent active:scale-95"
         >
           <ArrowUp className="h-5 w-5" />

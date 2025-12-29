@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import RegisterPopup from "../Auth/RegisterPopup";
 
 
-export function AdvertiseSection() {
+export function IntroSection() {
 
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +45,7 @@ export function AdvertiseSection() {
     }, []);
 
   return (
-    <section id="advertise" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
+    <section id="advertise-sec" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
 
       <div className="absolute inset-0 z-0">
         {particles.map((particle, i) => (

@@ -1,5 +1,5 @@
 import { Header } from "@/app/components/Headers"
-import { AdvertiseSection } from "@/app/components/Advertise/Advertise-sections"
+import { IntroSection } from "@/app/components/Advertise/Intro-sections"
 import { RecommendSection } from "@/app/components/Recommend/Recommend-sections"
 import { CurriculumSection } from "@/app/components/Curriculum/Curriculum-sections"
 import { PricingSection } from "@/app/components/PricingCourse/Pricing-sections"
@@ -14,7 +14,7 @@ export default function Page() {
       <Header />
       <main>
         {/* <ParticleBackground /> */}
-        <AdvertiseSection />
+        <IntroSection />
         <RecommendSection />
         <CurriculumSection />
         <PricingSection />
